@@ -3,13 +3,23 @@ package com.shehanrathnayake.service.custom.impl;
 import com.shehanrathnayake.service.custom.BookService;
 import com.shehanrathnayake.service.util.BookCategory;
 import com.shehanrathnayake.to.BookTO;
+import com.shehanrathnayake.to.request.BookReqTO;
+import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+@Service
+@Transactional
 public class BookServiceImpl implements BookService {
     @Override
-    public BookTO saveBook(BookTO bookTO) {
+    public BookTO saveBook(BookReqTO bookReqTO) {
         return null;
+    }
+
+    @Override
+    public void updateBookDetails(BookReqTO bookReqTO) {
+
     }
 
     @Override
@@ -18,12 +28,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBook(Integer bookId) {
+    public void deleteBook(String bookId) {
 
     }
 
     @Override
-    public BookTO getBookDetails(Integer bookId) {
+    public BookTO getBookDetails(String bookId) {
         return null;
     }
 

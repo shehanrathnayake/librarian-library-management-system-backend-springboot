@@ -12,7 +12,8 @@ public enum BookCategory {
     HEALTH("health"),
     HISTORY("history"),
     SCI_FI("sci-fi"),
-    KIDS("kids");
+    KIDS("kids"),
+    NONE("none");
 
     private String category;
     BookCategory(String category) {
