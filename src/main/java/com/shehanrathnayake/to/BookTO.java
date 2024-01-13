@@ -1,5 +1,6 @@
 package com.shehanrathnayake.to;
 
+import com.shehanrathnayake.service.util.BookCategory;
 import com.shehanrathnayake.validation.BookCover;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -23,7 +25,16 @@ public class BookTO implements Serializable {
     @NotBlank(message = "Author cannot be empty")
     @Pattern(regexp = "^[A-Za-z ]+$")
     private String author;
-    @NotBlank(message = "Availability cannot be empty")
+    @NotNull(message = "Book category cannot be empty")
+    private BookCategory category;
+    @NotNull(message = "Availability cannot be empty")
     private boolean isAvailable;
 
+    public BookTO(String isbnNumber, MultipartFile bookCover, String author, BookCategory category, boolean isAvailable) {
+        this.isbnNumber = isbnNumber;
+        this.bookCover = bookCover;
+        this.author = author;
+        this.category = category;
+        this.isAvailable = isAvailable;
+    }
 }

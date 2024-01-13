@@ -1,10 +1,12 @@
 package com.shehanrathnayake.to;
 
+import com.shehanrathnayake.service.util.IssueStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -14,9 +16,8 @@ import java.math.BigDecimal;
 public class IssueTO implements Serializable {
     @Null(message = "Issue ID should be empty")
     private String issuedDateTime;
-    @NotBlank(message = "Status cannot be empty")
-    @Pattern(regexp = "^[A-Za-z ]+$", message = "status cannot be empty")
-    private String status;
+    @NotNull(message = "Status cannot be empty")
+    private IssueStatus status;
     @NotBlank(message = "Book ID cannot be empty")
     @Pattern(regexp = "^B\\d{6}$", message = "Invalid book Id")
     private String bookId;
@@ -28,10 +29,17 @@ public class IssueTO implements Serializable {
     @Pattern(regexp = "^-?\\d+(\\.\\d+)?$", message = "Invalid format")
     private BigDecimal fine;
 
-    public IssueTO(String issuedDateTime, String status, String bookId, String userId) {
-        this.issuedDateTime = issuedDateTime;
+    public IssueTO(IssueStatus status, String bookId, String userId) {
         this.status = status;
         this.bookId = bookId;
         this.userId = userId;
+    }
+
+    public IssueTO(IssueStatus status, String bookId, String userId, String returnedDateTime, BigDecimal fine) {
+        this.status = status;
+        this.bookId = bookId;
+        this.userId = userId;
+        this.returnedDateTime = returnedDateTime;
+        this.fine = fine;
     }
 }
