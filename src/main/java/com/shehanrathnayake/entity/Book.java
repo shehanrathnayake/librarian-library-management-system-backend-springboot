@@ -21,6 +21,6 @@ public class Book implements SuperEntity {
     private String bookCover;
     @Column(nullable = false, length = 100)
     private String author;
-    @Column(name = "is_issued", nullable = false)
-    private boolean isIssued;
+    @Column(name = "is_available", nullable = false)
+    private boolean isAvailable;
 }
