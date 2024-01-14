@@ -1,7 +1,7 @@
 package com.shehanrathnayake.api;
 
 import com.shehanrathnayake.service.custom.UserService;
-import com.shehanrathnayake.service.util.UserRole;
+import com.shehanrathnayake.util.UserRole;
 import com.shehanrathnayake.to.UserTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;

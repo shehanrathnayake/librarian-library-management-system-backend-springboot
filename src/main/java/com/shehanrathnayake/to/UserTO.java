@@ -1,6 +1,6 @@
 package com.shehanrathnayake.to;
 
-import com.shehanrathnayake.service.util.UserRole;
+import com.shehanrathnayake.util.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

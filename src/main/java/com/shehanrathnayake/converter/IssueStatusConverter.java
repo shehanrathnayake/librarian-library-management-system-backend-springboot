@@ -1,8 +1,10 @@
 package com.shehanrathnayake.converter;
 
-import com.shehanrathnayake.service.util.IssueStatus;
+import com.shehanrathnayake.util.IssueStatus;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class IssueStatusConverter implements Converter<String, IssueStatus> {
     @Override
     public IssueStatus convert(String source) {

@@ -1,4 +1,4 @@
-package com.shehanrathnayake.service.util;
+package com.shehanrathnayake.util;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

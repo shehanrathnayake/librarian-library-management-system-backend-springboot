@@ -1,6 +1,6 @@
 package com.shehanrathnayake.to;
 
-import com.shehanrathnayake.service.util.IssueStatus;
+import com.shehanrathnayake.util.IssueStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

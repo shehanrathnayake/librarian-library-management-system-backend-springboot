@@ -1,7 +1,7 @@
 package com.shehanrathnayake.service.custom;
 
 import com.shehanrathnayake.service.SuperService;
-import com.shehanrathnayake.service.util.UserRole;
+import com.shehanrathnayake.util.UserRole;
 import com.shehanrathnayake.to.UserTO;
 
 import java.util.List;

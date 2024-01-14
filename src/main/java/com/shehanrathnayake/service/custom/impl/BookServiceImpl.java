@@ -59,10 +59,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void updateBookDetails(BookReqTO bookReqTO) {
-        Book currentBook = bookRepository.findById(Integer.parseInt(bookReqTO.getId().substring(1))).orElseThrow(() -> new AppException(404, "No book associated with the id"));
+        Book currentBook = bookRepository.findById(getIdNumberValue(bookReqTO.getId())).orElseThrow(() -> new AppException(404, "No book associated with the id"));
 
         Book updatedBook = transformer.fromBookReqTO(bookReqTO);
         updatedBook.setBookCover("book/" + updatedBook.getId());
+        bookRepository.save(updatedBook);
 
         boolean isDeleted = bucket.get(currentBook.getBookCover()).delete();
         if (!isDeleted) throw new AppException(500, "Failed to update the book cover");
@@ -76,7 +77,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void updateBookDetails(BookTO bookTO) {
-        bookRepository.findById(Integer.parseInt(bookTO.getId().substring(1))).orElseThrow(() -> new AppException(404, "No book associate with the id"));
+        bookRepository.findById(getIdNumberValue(bookTO.getId())).orElseThrow(() -> new AppException(404, "No book associate with the id"));
         Book updatedBook = transformer.fromBookTO(bookTO);
         bookRepository.save(updatedBook);
     }
