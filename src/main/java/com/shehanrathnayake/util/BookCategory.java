@@ -1,4 +1,4 @@
-package com.shehanrathnayake.service.util;
+package com.shehanrathnayake.util;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
@@ -12,8 +12,8 @@ public enum BookCategory {
     HEALTH("health"),
     HISTORY("history"),
     SCI_FI("sci-fi"),
-    KIDS("kids"),
-    NONE("none");
+    KIDS("kids");
+//    NONE("none");
 
     private String category;
     BookCategory(String category) {

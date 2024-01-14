@@ -10,22 +10,22 @@ public class AppException extends RuntimeException{
         this.errorCode = errorCode;
     }
 
-    public AppException(String message, int errorCode) {
+    public AppException(int errorCode, String message) {
         super(message);
         this.errorCode = errorCode;
     }
 
-    public AppException(Throwable cause, int errorCode) {
+    public AppException(int errorCode, Throwable cause) {
         super(cause);
         this.errorCode = errorCode;
     }
 
-    public AppException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace, int errorCode) {
+    public AppException(int errorCode, String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
         this.errorCode = errorCode;
     }
 
-    public AppException(String message, Throwable cause, int errorCode) {
+    public AppException(int errorCode, String message, Throwable cause) {
         super(message, cause);
         this.errorCode = errorCode;
     }

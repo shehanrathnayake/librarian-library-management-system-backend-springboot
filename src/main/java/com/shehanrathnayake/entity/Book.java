@@ -25,4 +25,19 @@ public class Book implements SuperEntity {
     private String category;
     @Column(name = "is_available", nullable = false)
     private boolean isAvailable;
+
+    public Book(String isbnNumber, String bookCover, String author, String category, boolean isAvailable) {
+        this.isbnNumber = isbnNumber;
+        this.bookCover = bookCover;
+        this.author = author;
+        this.category = category;
+        this.isAvailable = isAvailable;
+    }
+
+    public Book(String isbnNumber, String author, String category, boolean isAvailable) {
+        this.isbnNumber = isbnNumber;
+        this.author = author;
+        this.category = category;
+        this.isAvailable = isAvailable;
+    }
 }

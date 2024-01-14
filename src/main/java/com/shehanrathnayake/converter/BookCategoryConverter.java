@@ -1,6 +1,6 @@
 package com.shehanrathnayake.converter;
 
-import com.shehanrathnayake.service.util.BookCategory;
+import com.shehanrathnayake.util.BookCategory;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +13,7 @@ public class BookCategoryConverter implements Converter<String, BookCategory> {
                 return category;
             }
         }
-        return BookCategory.NONE;
+//        return BookCategory.NONE;
+        return null;
     }
 }

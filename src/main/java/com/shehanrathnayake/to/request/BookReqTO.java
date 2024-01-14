@@ -1,6 +1,6 @@
 package com.shehanrathnayake.to.request;
 
-import com.shehanrathnayake.service.util.BookCategory;
+import com.shehanrathnayake.util.BookCategory;
 import com.shehanrathnayake.validation.BookCover;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +19,6 @@ public class BookReqTO implements Serializable {
     @NotBlank(message = "ISBN number cannot be empty")
     @Pattern(regexp = "^\\d{13}$", message = "Not a valid ISBN number")
     private String isbnNumber;
-    @NotBlank(message = "Book Cover cannot be empty")
     @BookCover
     private MultipartFile bookCover;
     @NotBlank(message = "Author cannot be empty")

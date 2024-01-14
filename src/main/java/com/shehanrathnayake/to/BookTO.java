@@ -1,6 +1,6 @@
 package com.shehanrathnayake.to;
 
-import com.shehanrathnayake.service.util.BookCategory;
+import com.shehanrathnayake.util.BookCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,6 @@ public class BookTO implements Serializable {
     @Pattern(regexp = "^\\d{13}$", message = "Not a valid ISBN number")
     private String isbnNumber;
     @NotBlank(message = "Book Cover cannot be empty")
-    @Null(message = "Book cover url should be null")
     private String bookCover;
     @NotBlank(message = "Author cannot be empty")
     @Pattern(regexp = "^[A-Za-z ]+$")
@@ -27,14 +26,6 @@ public class BookTO implements Serializable {
     private BookCategory category;
     @NotNull(message = "Availability cannot be empty")
     private boolean isAvailable;
-
-    public BookTO(String isbnNumber, String author, BookCategory category, boolean isAvailable) {
-        this.isbnNumber = isbnNumber;
-        this.author = author;
-        this.category = category;
-        this.isAvailable = isAvailable;
-    }
-
     public BookTO(String isbnNumber, String bookCover, String author, BookCategory category, boolean isAvailable) {
         this.isbnNumber = isbnNumber;
         this.bookCover = bookCover;

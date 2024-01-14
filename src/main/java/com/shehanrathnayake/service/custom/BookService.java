@@ -1,7 +1,7 @@
 package com.shehanrathnayake.service.custom;
 
 import com.shehanrathnayake.service.SuperService;
-import com.shehanrathnayake.service.util.BookCategory;
+import com.shehanrathnayake.util.BookCategory;
 import com.shehanrathnayake.to.BookTO;
 import com.shehanrathnayake.to.request.BookReqTO;
 

@@ -14,6 +14,8 @@ public class GlobalExceptionHandler {
 
         if (exp.getErrorCode() == 404) {
             resExp = new ResponseStatusException(HttpStatus.NOT_FOUND, exp.getMessage());
+        } else if (exp.getErrorCode() == 400) {
+            resExp = new ResponseStatusException(HttpStatus.BAD_REQUEST, exp.getMessage());
         } else {
             resExp = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, exp.getMessage());
         }

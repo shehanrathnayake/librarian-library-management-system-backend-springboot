@@ -2,7 +2,7 @@ package com.shehanrathnayake.api;
 
 import com.shehanrathnayake.converter.BookCategoryConverter;
 import com.shehanrathnayake.service.custom.BookService;
-import com.shehanrathnayake.service.util.BookCategory;
+import com.shehanrathnayake.util.BookCategory;
 import com.shehanrathnayake.to.BookTO;
 import com.shehanrathnayake.to.request.BookReqTO;
 import org.springframework.http.HttpStatus;
