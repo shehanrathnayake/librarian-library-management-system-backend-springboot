@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
     @ExceptionHandler(AppException.class)
     public void handleAppWideExceptions(AppException exp) {
         ResponseStatusException resExp;
-
         if (exp.getErrorCode() == 404) {
             resExp = new ResponseStatusException(HttpStatus.NOT_FOUND, exp.getMessage());
         } else if (exp.getErrorCode() == 400) {

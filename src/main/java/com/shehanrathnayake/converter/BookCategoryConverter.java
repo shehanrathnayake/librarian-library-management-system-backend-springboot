@@ -13,7 +13,6 @@ public class BookCategoryConverter implements Converter<String, BookCategory> {
                 return category;
             }
         }
-//        return BookCategory.NONE;
         return null;
     }
 }

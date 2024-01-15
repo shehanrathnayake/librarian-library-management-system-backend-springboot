@@ -21,7 +21,6 @@ public class BookTransformer {
         this.mapper = modelMapper;
         this.bookCategoryConverter = bookCategoryConverter;
 
-
         mapper.typeMap(MultipartFile.class, String.class)
                 .setConverter(ctx -> null);
 
@@ -41,15 +40,12 @@ public class BookTransformer {
     public Book fromBookReqTO(BookReqTO bookReqTO) {
         return mapper.map(bookReqTO, Book.class);
     }
-
     public Book fromBookTO(BookTO bookTO) {
         return mapper.map(bookTO, Book.class);
     }
-
     public BookTO toBookTO(Book book) {
         return mapper.map(book, BookTO.class);
     }
-
     public List<BookTO> toBookTOList(List<Book> bookList) {
         return bookList.stream().map(this::toBookTO).collect(Collectors.toList());
     }
