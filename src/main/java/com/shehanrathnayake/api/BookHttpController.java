@@ -4,6 +4,7 @@ import com.shehanrathnayake.converter.BookCategoryConverter;
 import com.shehanrathnayake.service.custom.BookService;
 import com.shehanrathnayake.to.BookTO;
 import com.shehanrathnayake.to.request.BookReqTO;
+import com.shehanrathnayake.util.BookCategory;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -56,14 +57,14 @@ public class BookHttpController {
         return bookService.getBookDetails(bookId);
     }
 
-//    @GetMapping(produces = "application/json")
-//    public List<BookTO> getAllBooksByCategory(@RequestParam String category) {
-//        BookCategory categoryType = bookCategoryConverter.convert(category);
-//        return bookService.getAllBooks(categoryType);
-//    }
-
     @GetMapping(produces = "application/json")
-    public List<BookTO> getAllBooks() {
-        return bookService.getAllBooks();
+    public List<BookTO> getAllBooks(@RequestParam List<String> category) {
+        List<BookCategory> bookCategories = bookCategoryConverter.convertAll(category);
+        return bookService.getAllBooksByCategory(bookCategories);
     }
+
+//    @GetMapping(produces = "application/json")
+//    public List<BookTO> getAllBooks() {
+//        return bookService.getAllBooksByCategory(new ArrayList<BookCategory>());
+//    }
 }

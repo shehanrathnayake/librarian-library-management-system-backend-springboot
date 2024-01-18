@@ -106,17 +106,19 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookTO> getAllBooks(BookCategory category) {
-        if (category == null) throw new  AppException(400, "Bad Request");
-        List<Book> bookList = bookRepository.findBooksByCategory(category);
+    public List<BookTO> getAllBooksByCategory(List<BookCategory> category) {
+        List<Book> bookList = null;
+        if (category.size() == 1 && category.get(0) == BookCategory.ALL) bookList = bookRepository.findAll();
+        else bookList = bookRepository.findBooksByCategoryIn(category.stream().map(BookCategory::getCategory).collect(Collectors.toList()));
         return convertBookListToBookToList(bookList);
     }
 
-    @Override
-    public List<BookTO> getAllBooks() {
-        List<Book> allBookList = bookRepository.findAll();
-        return convertBookListToBookToList(allBookList);
-    }
+//    @Override
+//    public List<BookTO> getAllBooks() {
+//        List<Book> allBookList = bookRepository.findAll();
+//        return convertBookListToBookToList(allBookList);
+//    }
+
 
     private List<BookTO> convertBookListToBookToList(List<Book> bookList) {
         List<BookTO> bookTOList = transformer.toBookTOList(bookList);
