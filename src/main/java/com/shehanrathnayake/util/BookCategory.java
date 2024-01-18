@@ -8,7 +8,7 @@ public enum BookCategory {
     BUSINESS("business"),
     COMICS("comics"),
     TECHNOLOGY("technology"),
-    RELIGION("religion"),
+    FANTASY("fantasy"),
     HEALTH("health"),
     HISTORY("history"),
     SCI_FI("sci-fi"),

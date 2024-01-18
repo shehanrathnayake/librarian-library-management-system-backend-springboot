@@ -17,6 +17,10 @@ public class Book implements SuperEntity {
     private int id;
     @Column(name = "isbn_number", nullable = false, length = 20)
     private String isbnNumber;
+    @Column(nullable = false, length = 60)
+    private String name;
+    @Column(nullable = false, length = 500)
+    private String description;
     @Column(name = "book_cover", nullable = false, length = 100)
     private String bookCover;
     @Column(nullable = false, length = 100)

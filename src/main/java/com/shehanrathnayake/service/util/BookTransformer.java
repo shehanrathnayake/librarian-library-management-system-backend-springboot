@@ -35,6 +35,7 @@ public class BookTransformer {
 
         mapper.typeMap(String.class, BookCategory.class)
                 .setConverter(ctx -> bookCategoryConverter.convert(ctx.getSource()));
+
     }
 
     public Book fromBookReqTO(BookReqTO bookReqTO) {

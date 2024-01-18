@@ -35,16 +35,18 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookTO saveBook(BookReqTO bookReqTO) {
-        System.out.println("Before repo: " + bookReqTO.isAvailable());
+        System.out.println("Before repo (Service): " + bookReqTO.isAvailable());
         Book book = transformer.fromBookReqTO(bookReqTO);
-        System.out.println("After repo: " + book.isAvailable());
+        System.out.println("After repo (Service): " + book.isAvailable());
         book.setBookCover("book/0");
         Book savedBook = bookRepository.save(book);
+        System.out.println("Saved Book" + savedBook.isAvailable());
 
         savedBook.setBookCover("book/" + savedBook.getId());
         Book updatedBook = bookRepository.save(savedBook);
+        System.out.println("Updated book" + updatedBook.isAvailable());
         BookTO bookTO = transformer.toBookTO(updatedBook);
-        System.out.println(bookTO.isAvailable());
+        System.out.println("updated BookTO" + bookTO.isAvailable());
 
         Blob blobRef = null;
         try {
@@ -107,6 +109,16 @@ public class BookServiceImpl implements BookService {
     public List<BookTO> getAllBooks(BookCategory category) {
         if (category == null) throw new  AppException(400, "Bad Request");
         List<Book> bookList = bookRepository.findBooksByCategory(category);
+        return convertBookListToBookToList(bookList);
+    }
+
+    @Override
+    public List<BookTO> getAllBooks() {
+        List<Book> allBookList = bookRepository.findAll();
+        return convertBookListToBookToList(allBookList);
+    }
+
+    private List<BookTO> convertBookListToBookToList(List<Book> bookList) {
         List<BookTO> bookTOList = transformer.toBookTOList(bookList);
         return bookTOList.stream().map(l -> {
             l.setBookCover(bucket.get(l.getBookCover()).signUrl(1, TimeUnit.DAYS, Storage.SignUrlOption.withV4Signature()).toString());

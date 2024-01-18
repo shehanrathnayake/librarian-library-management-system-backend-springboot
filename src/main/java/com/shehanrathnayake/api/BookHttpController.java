@@ -2,7 +2,6 @@ package com.shehanrathnayake.api;
 
 import com.shehanrathnayake.converter.BookCategoryConverter;
 import com.shehanrathnayake.service.custom.BookService;
-import com.shehanrathnayake.util.BookCategory;
 import com.shehanrathnayake.to.BookTO;
 import com.shehanrathnayake.to.request.BookReqTO;
 import org.springframework.http.HttpStatus;
@@ -26,6 +25,7 @@ public class BookHttpController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "multipart/form-data", produces = "application/json")
     public BookTO createNewBook(@ModelAttribute @Validated BookReqTO bookReqTO) {
+        System.out.println("BookReqTO (Controller): " + bookReqTO.isAvailable());
         return bookService.saveBook(bookReqTO);
     }
 
@@ -56,9 +56,14 @@ public class BookHttpController {
         return bookService.getBookDetails(bookId);
     }
 
+//    @GetMapping(produces = "application/json")
+//    public List<BookTO> getAllBooksByCategory(@RequestParam String category) {
+//        BookCategory categoryType = bookCategoryConverter.convert(category);
+//        return bookService.getAllBooks(categoryType);
+//    }
+
     @GetMapping(produces = "application/json")
-    public List<BookTO> getAllBooksByCategory(@RequestParam String category) {
-        BookCategory categoryType = bookCategoryConverter.convert(category);
-        return bookService.getAllBooks(categoryType);
+    public List<BookTO> getAllBooks() {
+        return bookService.getAllBooks();
     }
 }

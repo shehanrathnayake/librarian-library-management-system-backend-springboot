@@ -14,4 +14,5 @@ public interface BookService extends SuperService {
     void deleteBook(String bookId);
     BookTO getBookDetails(String bookId);
     List<BookTO> getAllBooks(BookCategory category);
+    List<BookTO> getAllBooks();
 }
