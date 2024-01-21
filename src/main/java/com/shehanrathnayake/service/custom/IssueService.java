@@ -8,7 +8,7 @@ import java.util.List;
 public interface IssueService extends SuperService {
     IssueTO saveIssue(IssueTO issueTO);
     void updateIssue(IssueTO issueTO);
-    void deleteIssue(String issuedDateTime);
+    void deleteIssue(String issueId);
 //    IssueTO getIssueDetails(String issuedDateTime);
     List<IssueTO> getAllIssues(String userId);
 }

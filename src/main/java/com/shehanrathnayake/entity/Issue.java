@@ -16,7 +16,7 @@ public class Issue implements SuperEntity {
     private String issuedDate;
     @Column(nullable = false, length = 10)
     private String status;
-    @Column(nullable = false, columnDefinition = "DEFAULT 0")
+    @Column(nullable = false)
     private int renews;
 
     @ManyToOne
