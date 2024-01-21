@@ -25,4 +25,12 @@ public class User implements SuperEntity {
     private String address;
     @Column(nullable = false, length = 20)
     private String contact;
+
+    public User(String name, String email, String password, String address, String contact) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.contact = contact;
+    }
 }
