@@ -10,36 +10,32 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class IssueTO implements Serializable {
+    private String id;
     @Null(message = "Issue ID should be empty")
-    private String issuedDateTime;
+    private String issuedDate;
     @NotNull(message = "Status cannot be empty")
     private IssueStatus status;
+    @Pattern(regexp = "^\\d+$", message = "Only integer values are acceptable")
+    private Integer renews;
+    @NotBlank(message = "Issued officer cannot be empty")
+    @Pattern(regexp = "^S\\d{6}$")
+    private String issuedOfficer;
     @NotBlank(message = "Book ID cannot be empty")
     @Pattern(regexp = "^B\\d{6}$", message = "Invalid book Id")
     private String bookId;
     @NotBlank(message = "User ID cannot be empty")
     @Pattern(regexp = "^U\\d{6}$", message = "Invalid user Id")
     private String userId;
-    @Pattern(regexp = "^\\d{10,32}$", message = "Invalid date and time")
-    private String returnedDateTime;
-    @Pattern(regexp = "^-?\\d+(\\.\\d+)?$", message = "Invalid format")
-    private BigDecimal fine;
 
-    public IssueTO(IssueStatus status, String bookId, String userId) {
+    public IssueTO(String issuedDate, IssueStatus status, Integer renews, String issuedOfficer, String bookId, String userId) {
+        this.issuedDate = issuedDate;
         this.status = status;
+        this.renews = renews;
+        this.issuedOfficer = issuedOfficer;
         this.bookId = bookId;
         this.userId = userId;
-    }
-
-    public IssueTO(IssueStatus status, String bookId, String userId, String returnedDateTime, BigDecimal fine) {
-        this.status = status;
-        this.bookId = bookId;
-        this.userId = userId;
-        this.returnedDateTime = returnedDateTime;
-        this.fine = fine;
     }
 }

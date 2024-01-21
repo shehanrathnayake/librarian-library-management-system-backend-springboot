@@ -17,7 +17,7 @@ public class StaffTransformer {
         this.mapper = mapper;
 
         mapper.typeMap(String.class, Integer.class)
-                .setConverter(ctx -> (ctx.getSource() != null) ? Integer.parseInt(ctx.getSource().substring(1)) : null);
+                .setConverter(ctx -> (ctx.getSource() != null) ? staffPropsConverter.convertIdToInt(ctx.getSource()) : null);
         mapper.typeMap(Integer.class, String.class)
                 .setConverter(ctx -> (ctx.getSource() != null) ? staffPropsConverter.covertToString(ctx.getSource()) : null);
     }

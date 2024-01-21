@@ -1,5 +1,6 @@
 package com.shehanrathnayake.service.custom.impl;
 
+import com.shehanrathnayake.converter.IssuePropertiesConverter;
 import com.shehanrathnayake.converter.UserPropertiesConverter;
 import com.shehanrathnayake.entity.Issue;
 import com.shehanrathnayake.exception.AppException;
@@ -19,11 +20,13 @@ import java.util.List;
 public class IssueServiceImpl implements IssueService {
     private final IssueRepository issueRepository;
     private final IssueTransformer transformer;
+    private final IssuePropertiesConverter issuePropsConverter;
     private final UserRepository userRepository;
     private final UserPropertiesConverter userPropsConverter;
-    public IssueServiceImpl(IssueRepository issueRepository, IssueTransformer transformer, UserRepository userRepository, UserTransformer userTransformer, UserPropertiesConverter userPropsConverter) {
+    public IssueServiceImpl(IssueRepository issueRepository, IssueTransformer transformer, IssuePropertiesConverter issuePropsConverter, UserRepository userRepository, UserTransformer userTransformer, UserPropertiesConverter userPropsConverter) {
         this.issueRepository = issueRepository;
         this.transformer = transformer;
+        this.issuePropsConverter = issuePropsConverter;
         this.userRepository = userRepository;
         this.userPropsConverter = userPropsConverter;
     }
@@ -37,14 +40,13 @@ public class IssueServiceImpl implements IssueService {
 
     @Override
     public void updateIssue(IssueTO issueTO) {
-        issueRepository.findById(issueTO.getIssuedDateTime()).orElseThrow(() -> new AppException(404, "No issue associated with the issued date and time"));
         Issue issue = transformer.fromIssueTO(issueTO);
         issueRepository.save(issue);
     }
 
     @Override
-    public void deleteIssue(String issuedDateTime) {
-        Issue issue = issueRepository.findById(issuedDateTime).orElseThrow(() -> new AppException(404, "No issue associated with the issue date and time"));
+    public void deleteIssue(String issueId) {
+        Issue issue = issueRepository.findById(issuePropsConverter.convertIdToInt(issueId)).orElseThrow(() -> new AppException(404, "No issue associated with the issue date and time"));
         issueRepository.delete(issue);
     }
 

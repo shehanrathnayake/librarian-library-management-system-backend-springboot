@@ -1,6 +1,6 @@
 package com.shehanrathnayake.api;
 
-import com.shehanrathnayake.converter.BookCategoryConverter;
+import com.shehanrathnayake.converter.BookPropertiesConverter;
 import com.shehanrathnayake.service.custom.BookService;
 import com.shehanrathnayake.to.BookTO;
 import com.shehanrathnayake.to.request.BookReqTO;
@@ -15,18 +15,17 @@ import java.util.List;
 @RequestMapping("/api/v1/books")
 @CrossOrigin
 public class BookHttpController {
-    private BookService bookService;
-    private BookCategoryConverter bookCategoryConverter;
+    private final BookService bookService;
+    private final BookPropertiesConverter bookPropertiesConverter;
 
-    public BookHttpController(BookService bookService, BookCategoryConverter bookCategoryConverter) {
+    public BookHttpController(BookService bookService, BookPropertiesConverter bookPropertiesConverter) {
         this.bookService = bookService;
-        this.bookCategoryConverter = bookCategoryConverter;
+        this.bookPropertiesConverter = bookPropertiesConverter;
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(consumes = "multipart/form-data", produces = "application/json")
     public BookTO createNewBook(@ModelAttribute @Validated BookReqTO bookReqTO) {
-        System.out.println("BookReqTO (Controller): " + bookReqTO.isAvailable());
         return bookService.saveBook(bookReqTO);
     }
 
@@ -59,7 +58,7 @@ public class BookHttpController {
 
     @GetMapping(produces = "application/json")
     public List<BookTO> getAllBooks(@RequestParam List<String> category) {
-        List<BookCategory> bookCategories = bookCategoryConverter.convertAll(category);
+        List<BookCategory> bookCategories = bookPropertiesConverter.convertAll(category);
         return bookService.getAllBooksByCategory(bookCategories);
     }
 

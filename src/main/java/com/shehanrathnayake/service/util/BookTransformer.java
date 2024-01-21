@@ -1,6 +1,6 @@
 package com.shehanrathnayake.service.util;
 
-import com.shehanrathnayake.converter.BookCategoryConverter;
+import com.shehanrathnayake.converter.BookPropertiesConverter;
 import com.shehanrathnayake.entity.Book;
 import com.shehanrathnayake.to.BookTO;
 import com.shehanrathnayake.to.request.BookReqTO;
@@ -16,23 +16,23 @@ import java.util.stream.Collectors;
 public class BookTransformer {
     private final ModelMapper mapper;
 
-    public BookTransformer(ModelMapper modelMapper, BookCategoryConverter bookCategoryConverter) {
+    public BookTransformer(ModelMapper modelMapper, BookPropertiesConverter bookPropsConverter) {
         this.mapper = modelMapper;
 
         mapper.typeMap(MultipartFile.class, String.class)
                 .setConverter(ctx -> null);
 
         mapper.typeMap(String.class, Integer.class)
-                .setConverter(ctx -> (ctx.getSource() != null) ? Integer.parseInt(ctx.getSource().substring(1)) : null);
+                .setConverter(ctx -> (ctx.getSource() != null) ? bookPropsConverter.convertIdToInt(ctx.getSource()) : null);
 
         mapper.typeMap(Integer.class, String.class)
-                        .setConverter(ctx -> (ctx.getSource() != null) ? String.format("B%06d", ctx.getSource()) : null);
+                        .setConverter(ctx -> (ctx.getSource() != null) ? bookPropsConverter.covertToString(ctx.getSource()) : null);
 
         mapper.typeMap(BookCategory.class, String.class)
                 .setConverter(ctx -> ctx.getSource().getCategory());
 
         mapper.typeMap(String.class, BookCategory.class)
-                .setConverter(ctx -> bookCategoryConverter.convert(ctx.getSource()));
+                .setConverter(ctx -> bookPropsConverter.convert(ctx.getSource()));
 
     }
 

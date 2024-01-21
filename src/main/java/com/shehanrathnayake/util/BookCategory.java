@@ -15,7 +15,7 @@ public enum BookCategory {
     KIDS("kids"),
     ALL("all");
 
-    private String category;
+    private final String category;
     BookCategory(String category) {
         this.category = category;
     }

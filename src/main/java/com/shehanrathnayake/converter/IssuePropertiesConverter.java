@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class IssueStatusConverter implements Converter<String, IssueStatus> {
+public class IssuePropertiesConverter implements Converter<String, IssueStatus> {
     @Override
     public IssueStatus convert(String source) {
         for (IssueStatus status : IssueStatus.values()) {
@@ -15,4 +15,12 @@ public class IssueStatusConverter implements Converter<String, IssueStatus> {
         }
         return null;
     }
+
+    public int convertIdToInt(String issueId) {
+        return Integer.parseInt(issueId.substring(1));
+    }
+    public String covertToString(Integer issueId) {
+        return String.format("I%06d", issueId);
+    }
+
 }

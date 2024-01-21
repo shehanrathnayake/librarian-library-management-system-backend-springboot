@@ -28,7 +28,7 @@ public class IssueHttpController {
     @PostMapping(value = "/{issue-id}", consumes = "application/json")
     public void updateIssue(@PathVariable("issue-id") String issueId,
                             @RequestBody @Validated IssueTO issueTO) {
-        issueTO.setIssuedDateTime(issueId);
+        issueTO.setId(issueId);
         issueService.updateIssue(issueTO);
     }
 

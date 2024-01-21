@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class BookCategoryConverter implements Converter<String, BookCategory> {
+public class BookPropertiesConverter implements Converter<String, BookCategory> {
     @Override
     public BookCategory convert(String source) {
         for (BookCategory category : BookCategory.values()) {
@@ -25,5 +25,12 @@ public class BookCategoryConverter implements Converter<String, BookCategory> {
             bookCategories.add(this.convert(source));
         }
         return bookCategories;
+    }
+
+    public int convertIdToInt(String bookId) {
+        return Integer.parseInt(bookId.substring(1));
+    }
+    public String covertToString(Integer bookId) {
+        return String.format("B%06d", bookId);
     }
 }
