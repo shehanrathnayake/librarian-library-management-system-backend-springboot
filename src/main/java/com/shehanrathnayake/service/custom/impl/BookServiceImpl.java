@@ -35,18 +35,13 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookTO saveBook(BookReqTO bookReqTO) {
-        System.out.println("Before repo (Service): " + bookReqTO.isAvailable());
         Book book = transformer.fromBookReqTO(bookReqTO);
-        System.out.println("After repo (Service): " + book.isAvailable());
         book.setBookCover("book/0");
         Book savedBook = bookRepository.save(book);
-        System.out.println("Saved Book" + savedBook.isAvailable());
 
         savedBook.setBookCover("book/" + savedBook.getId());
         Book updatedBook = bookRepository.save(savedBook);
-        System.out.println("Updated book" + updatedBook.isAvailable());
         BookTO bookTO = transformer.toBookTO(updatedBook);
-        System.out.println("updated BookTO" + bookTO.isAvailable());
 
         Blob blobRef = null;
         try {

@@ -15,7 +15,7 @@ public class Book implements SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "isbn_number", nullable = false, length = 20)
+    @Column(name = "isbn_number", nullable = false, length = 20, unique = true)
     private String isbnNumber;
     @Column(nullable = false, length = 60)
     private String name;
@@ -27,21 +27,29 @@ public class Book implements SuperEntity {
     private String author;
     @Column(nullable = false, length = 20)
     private String category;
-    @Column(name = "is_available", nullable = false)
-    private boolean isAvailable;
+    @Column(name = "total_copies", nullable = false)
+    private int totalCopies;
+    @Column(name = "available_copies", nullable = false)
+    private int availableCopies;
 
-    public Book(String isbnNumber, String bookCover, String author, String category, boolean isAvailable) {
+    public Book(String isbnNumber, String name, String description, String bookCover, String author, String category, int totalCopies, int availableCopies) {
         this.isbnNumber = isbnNumber;
+        this.name = name;
+        this.description = description;
         this.bookCover = bookCover;
         this.author = author;
         this.category = category;
-        this.isAvailable = isAvailable;
+        this.totalCopies = totalCopies;
+        this.availableCopies = availableCopies;
     }
 
-    public Book(String isbnNumber, String author, String category, boolean isAvailable) {
+    public Book(String isbnNumber, String name, String description, String author, String category, int totalCopies, int availableCopies) {
         this.isbnNumber = isbnNumber;
+        this.name = name;
+        this.description = description;
         this.author = author;
         this.category = category;
-        this.isAvailable = isAvailable;
+        this.totalCopies = totalCopies;
+        this.availableCopies = availableCopies;
     }
 }

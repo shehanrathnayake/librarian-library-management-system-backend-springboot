@@ -15,11 +15,9 @@ import java.util.stream.Collectors;
 @Component
 public class BookTransformer {
     private final ModelMapper mapper;
-    private final BookCategoryConverter bookCategoryConverter;
 
     public BookTransformer(ModelMapper modelMapper, BookCategoryConverter bookCategoryConverter) {
         this.mapper = modelMapper;
-        this.bookCategoryConverter = bookCategoryConverter;
 
         mapper.typeMap(MultipartFile.class, String.class)
                 .setConverter(ctx -> null);

@@ -30,16 +30,19 @@ public class BookTO implements Serializable {
     private String author;
     @NotNull(message = "Book category cannot be empty")
     private BookCategory category;
-    @NotNull(message = "Availability cannot be empty")
-    private boolean available;
+    @NotNull(message = "No of Total copies cannot be empty")
+    private Integer totalCopies;
+    @NotNull(message = "No. of available copies cannot be empty. Provide 0 if all copies are issued")
+    private Integer availableCopies;
 
-    public BookTO(String isbnNumber, String name, String description, String bookCover, String author, BookCategory category, boolean available) {
+    public BookTO(String isbnNumber, String name, String description, String bookCover, String author, BookCategory category, Integer totalCopies, Integer availableCopies) {
         this.isbnNumber = isbnNumber;
         this.name = name;
         this.description = description;
         this.bookCover = bookCover;
         this.author = author;
         this.category = category;
-        this.available = available;
+        this.totalCopies = totalCopies;
+        this.availableCopies = availableCopies;
     }
 }
