@@ -24,4 +24,12 @@ public class Employee implements SuperEntity {
     private String contact;
     @Column(nullable = false, length = 100)
     private String password;
+
+    public Employee(String name, String designation, String address, String contact, String password) {
+        this.name = name;
+        this.designation = designation;
+        this.address = address;
+        this.contact = contact;
+        this.password = password;
+    }
 }
