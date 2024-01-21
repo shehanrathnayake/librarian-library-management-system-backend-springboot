@@ -17,23 +17,26 @@ public class UserTO implements Serializable {
     @NotBlank(message = "User's name cannot be empty")
     @Pattern(regexp = "^[A-Za-z ]+$", message = "Invalid name format")
     private String name;
+    @NotBlank(message = "Email cannot be empty")
+    @Pattern(regexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", message = "Invalid email format")
+    private String email;
+    @NotBlank(message = "Password cannot be empty")
+    private String password;
     @NotBlank(message = "Address cannot be empty")
-    @Pattern(regexp = "^[A-Za-z ]+$", message = "Invalid address format")
+    @Pattern(regexp = "^[A-Za-z0-9-. ]+$", message = "Invalid address format")
     private String address;
     @NotBlank(message = "Contact cannot be empty")
     @Pattern(regexp = "^\\d+$", message = "Contact cannot be empty")
     private String contact;
-    @NotBlank(message = "Email cannot be empty")
-    @Pattern(regexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$", message = "Invalid email format")
-    private String email;
     @NotNull(message = "Role cannot be empty")
     private UserRole role;
 
-    public UserTO(String name, String address, String contact, String email, UserRole role) {
+    public UserTO(String name, String email, String password, String address, String contact, UserRole role) {
         this.name = name;
+        this.email = email;
+        this.password = password;
         this.address = address;
         this.contact = contact;
-        this.email = email;
         this.role = role;
     }
 }
