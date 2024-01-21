@@ -1,12 +1,10 @@
 package com.shehanrathnayake.to;
 
-import com.shehanrathnayake.util.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -28,15 +26,12 @@ public class UserTO implements Serializable {
     @NotBlank(message = "Contact cannot be empty")
     @Pattern(regexp = "^\\d+$", message = "Contact cannot be empty")
     private String contact;
-    @NotNull(message = "Role cannot be empty")
-    private UserRole role;
 
-    public UserTO(String name, String email, String password, String address, String contact, UserRole role) {
+    public UserTO(String name, String email, String password, String address, String contact) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.address = address;
         this.contact = contact;
-        this.role = role;
     }
 }

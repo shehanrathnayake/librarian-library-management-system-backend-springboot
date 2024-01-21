@@ -5,7 +5,6 @@ import com.shehanrathnayake.exception.AppException;
 import com.shehanrathnayake.repository.UserRepository;
 import com.shehanrathnayake.service.custom.UserService;
 import com.shehanrathnayake.service.util.UserTransformer;
-import com.shehanrathnayake.util.UserRole;
 import com.shehanrathnayake.to.UserTO;
 import org.springframework.stereotype.Service;
 
@@ -52,8 +51,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserTO> getAllUsers(UserRole role) {
-        List<User> usersList = userRepository.findUsersByRole(role);
+    public List<UserTO> getAllUsers() {
+        List<User> usersList = userRepository.findAll();
         return transformer.toUserTOList(usersList);
     }
 

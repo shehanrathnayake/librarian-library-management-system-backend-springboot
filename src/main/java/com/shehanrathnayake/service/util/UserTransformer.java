@@ -3,7 +3,6 @@ package com.shehanrathnayake.service.util;
 import com.shehanrathnayake.converter.UserPropertiesConverter;
 import com.shehanrathnayake.entity.User;
 import com.shehanrathnayake.to.UserTO;
-import com.shehanrathnayake.util.UserRole;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +15,6 @@ public class UserTransformer {
 
     public UserTransformer(ModelMapper mapper, UserPropertiesConverter userPropsConverter) {
         this.mapper = mapper;
-
-        mapper.typeMap(UserRole.class, String.class)
-                .setConverter(ctx -> ctx.getSource().getRole());
-
-        mapper.typeMap(String.class, UserRole.class)
-                .setConverter(ctx -> userPropsConverter.convert(ctx.getSource()));
 
         mapper.typeMap(Integer.class, String.class)
                 .setConverter(ctx -> (ctx.getSource() != null) ? userPropsConverter.convertIdToString(ctx.getSource()) : null);

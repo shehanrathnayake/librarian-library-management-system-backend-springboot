@@ -25,6 +25,4 @@ public class User implements SuperEntity {
     private String address;
     @Column(nullable = false, length = 20)
     private String contact;
-    @Column(nullable = false, length = 15)
-    private String role;
 }

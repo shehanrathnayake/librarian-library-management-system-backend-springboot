@@ -1,7 +1,6 @@
 package com.shehanrathnayake.api;
 
 import com.shehanrathnayake.service.custom.UserService;
-import com.shehanrathnayake.util.UserRole;
 import com.shehanrathnayake.to.UserTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -44,13 +43,8 @@ public class UserHttpController {
         return userService.getUserDetails(userId);
     }
 
-    @GetMapping(params ="role=member", produces = "application/json")
+    @GetMapping(produces = "application/json")
     public List<UserTO> getAllMembers() {
-        return userService.getAllUsers(UserRole.MEMBER);
-    }
-
-    @GetMapping(params = "role=staff", produces = "application/json")
-    public List<UserTO> getAllEmployees() {
-        return userService.getAllUsers(UserRole.STAFF);
+        return userService.getAllUsers();
     }
 }
