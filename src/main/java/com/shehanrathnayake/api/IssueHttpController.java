@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/v1/issues")
 @CrossOrigin
 public class IssueHttpController {
-    private IssueService issueService;
+    private final IssueService issueService;
 
     public IssueHttpController(IssueService issueService) {
         this.issueService = issueService;
@@ -38,13 +38,13 @@ public class IssueHttpController {
         issueService.deleteIssue(issueId);
     }
 
-    @GetMapping(value = "/{issue-id}", produces = "application/json")
-    public IssueTO getIssueDetails(@PathVariable("issue-id") String issueId) {
-        return issueService.getIssueDetails(issueId);
-    }
+//    @GetMapping(value = "/{issue-id}", produces = "application/json")
+//    public IssueTO getIssueDetails(@PathVariable("issue-id") String issueId) {
+//        return issueService.getIssueDetails(issueId);
+//    }
 
-    @GetMapping(produces = "application/json")
-    public List<IssueTO> getAllIssues() {
-        return issueService.getAllIssues();
+    @GetMapping(value = "/{user-id}", produces = "application/json")
+    public List<IssueTO> getAllIssues(@PathVariable("user-id") String userId) {
+        return issueService.getAllIssues(userId);
     }
 }

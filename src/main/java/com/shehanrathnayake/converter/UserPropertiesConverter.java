@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserRoleConverter implements Converter<String, UserRole> {
+public class UserPropertiesConverter implements Converter<String, UserRole> {
     @Override
     public UserRole convert(String source) {
         for (UserRole role : UserRole.values()) {
@@ -14,5 +14,13 @@ public class UserRoleConverter implements Converter<String, UserRole> {
             }
         }
         return null;
+    }
+
+    public int convertIdToInt(String userId) {
+        return Integer.parseInt(userId.substring(1));
+    }
+
+    public String convertIdToString(int userId) {
+        return String.format("U%06d",userId);
     }
 }

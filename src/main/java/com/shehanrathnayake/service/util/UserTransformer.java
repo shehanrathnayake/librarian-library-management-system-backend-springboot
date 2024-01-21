@@ -1,6 +1,6 @@
 package com.shehanrathnayake.service.util;
 
-import com.shehanrathnayake.converter.UserRoleConverter;
+import com.shehanrathnayake.converter.UserPropertiesConverter;
 import com.shehanrathnayake.entity.User;
 import com.shehanrathnayake.to.UserTO;
 import com.shehanrathnayake.util.UserRole;
@@ -13,22 +13,20 @@ import java.util.stream.Collectors;
 @Component
 public class UserTransformer {
     private final ModelMapper mapper;
-    private final UserRoleConverter userRoleConverter;
 
-    public UserTransformer(ModelMapper mapper, UserRoleConverter userRoleConverter) {
+    public UserTransformer(ModelMapper mapper, UserPropertiesConverter userPropsConverter) {
         this.mapper = mapper;
-        this.userRoleConverter = userRoleConverter;
 
         mapper.typeMap(UserRole.class, String.class)
                 .setConverter(ctx -> ctx.getSource().getRole());
 
         mapper.typeMap(String.class, UserRole.class)
-                .setConverter(ctx -> userRoleConverter.convert(ctx.getSource()));
+                .setConverter(ctx -> userPropsConverter.convert(ctx.getSource()));
 
         mapper.typeMap(Integer.class, String.class)
-                .setConverter(ctx -> (ctx.getSource() != null) ? String.format("U%06d",ctx.getSource()) : null);
+                .setConverter(ctx -> (ctx.getSource() != null) ? userPropsConverter.convertIdToString(ctx.getSource()) : null);
         mapper.typeMap(String.class, Integer.class)
-                .setConverter(ctx -> (ctx.getSource() != null) ? Integer.parseInt(ctx.getSource().substring(1)): null);
+                .setConverter(ctx -> (ctx.getSource() != null) ? userPropsConverter.convertIdToInt(ctx.getSource()): null);
     }
 
     public User fromUserTO(UserTO userTO) {
@@ -41,5 +39,4 @@ public class UserTransformer {
     public List<UserTO> toUserTOList(List<User> userList) {
         return userList.stream().map(this::toUserTO).collect(Collectors.toList());
     }
-
 }

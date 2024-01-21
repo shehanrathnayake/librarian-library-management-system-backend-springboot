@@ -9,6 +9,6 @@ public interface IssueService extends SuperService {
     IssueTO saveIssue(IssueTO issueTO);
     void updateIssue(IssueTO issueTO);
     void deleteIssue(String issuedDateTime);
-    IssueTO getIssueDetails(String issuedDateTime);
-    List<IssueTO> getAllIssues();
+//    IssueTO getIssueDetails(String issuedDateTime);
+    List<IssueTO> getAllIssues(String userId);
 }

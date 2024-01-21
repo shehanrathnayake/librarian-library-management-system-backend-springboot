@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin
 public class UserHttpController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserHttpController(UserService userService) {
         this.userService = userService;
