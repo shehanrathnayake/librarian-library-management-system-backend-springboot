@@ -20,8 +20,8 @@ public class Issue implements SuperEntity {
     private int renews;
 
     @ManyToOne
-    @JoinColumn(name = "issued_officer", referencedColumnName = "id")
-    private Staff issuedOfficer;
+    @JoinColumn(name = "issued_employee", referencedColumnName = "id")
+    private Employee issuedEmployee;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "book_id", referencedColumnName = "id")

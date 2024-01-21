@@ -9,8 +9,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "staff")
-public class Staff implements SuperEntity {
+@Table(name = "employee")
+public class Employee implements SuperEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

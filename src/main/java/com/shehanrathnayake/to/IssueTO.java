@@ -10,12 +10,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class IssueTO implements Serializable {
     private String id;
     @Null(message = "Issue ID should be empty")
-    private String issuedDate;
+    private Date issuedDate;
     @NotNull(message = "Status cannot be empty")
     private IssueStatus status;
     @Pattern(regexp = "^\\d+$", message = "Only integer values are acceptable")
@@ -30,7 +31,7 @@ public class IssueTO implements Serializable {
     @Pattern(regexp = "^U\\d{6}$", message = "Invalid user Id")
     private String userId;
 
-    public IssueTO(String issuedDate, IssueStatus status, Integer renews, String issuedOfficer, String bookId, String userId) {
+    public IssueTO(Date issuedDate, IssueStatus status, Integer renews, String issuedOfficer, String bookId, String userId) {
         this.issuedDate = issuedDate;
         this.status = status;
         this.renews = renews;

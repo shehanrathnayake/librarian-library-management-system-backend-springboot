@@ -24,10 +24,13 @@ class BookRepositoryImplTest {
     void save() {
         Book book = new Book(
                 "1234567891234",
+                "Arts and Music",
+                "A great masterpiece done by Author",
                 "books/1",
-                "Shehan Rathnayake",
+                "Peter Alwis",
                 "entertainment",
-                true
+                5,
+                3
         );
         Book savedBook = bookRepository.save(book);
         assertNotNull(savedBook);
@@ -36,7 +39,7 @@ class BookRepositoryImplTest {
         assertEquals(book.getBookCover(), "books/1");
         assertEquals(book.getAuthor(), "Shehan Rathnayake");
         assertEquals(book.getCategory(), "entertainment");
-        assertTrue(book.isAvailable());
+
 
     }
     @Test

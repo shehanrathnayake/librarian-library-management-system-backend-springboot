@@ -21,8 +21,8 @@ public class IssueReturn implements SuperEntity{
     private Issue issueId;
 
     @ManyToOne
-    @JoinColumn(name = "returned_officer", referencedColumnName = "id")
-    private Staff returnedOfficer;
+    @JoinColumn(name = "returned_employee", referencedColumnName = "id")
+    private Employee returnedEmployee;
 
     @Column(precision = 10, scale = 2)
     private BigDecimal fine;

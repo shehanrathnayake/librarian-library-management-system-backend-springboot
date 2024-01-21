@@ -9,7 +9,7 @@ import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 @Data @AllArgsConstructor @NoArgsConstructor
-public class StaffTO implements Serializable {
+public class EmployeeTO implements Serializable {
     @Null(message = "Staff ID should be empty")
     private String id;
     @NotBlank(message = "Staff names cannot be empty")
@@ -27,7 +27,7 @@ public class StaffTO implements Serializable {
     @NotBlank(message = "Password cannot be empty")
     private String password;
 
-    public StaffTO(String name, String designation, String address, String contact, String password) {
+    public EmployeeTO(String name, String designation, String address, String contact, String password) {
         this.name = name;
         this.designation = designation;
         this.address = address;

@@ -2,21 +2,22 @@ package com.shehanrathnayake.service.util;
 
 import com.shehanrathnayake.converter.BookPropertiesConverter;
 import com.shehanrathnayake.converter.IssuePropertiesConverter;
-import com.shehanrathnayake.converter.StaffPropertiesConverter;
+import com.shehanrathnayake.converter.EmployeePropertiesConverter;
 import com.shehanrathnayake.converter.UserPropertiesConverter;
 import com.shehanrathnayake.entity.Book;
 import com.shehanrathnayake.entity.Issue;
-import com.shehanrathnayake.entity.Staff;
+import com.shehanrathnayake.entity.Employee;
 import com.shehanrathnayake.entity.User;
 import com.shehanrathnayake.exception.AppException;
 import com.shehanrathnayake.repository.BookRepository;
-import com.shehanrathnayake.repository.StaffRepository;
+import com.shehanrathnayake.repository.EmployeeRepository;
 import com.shehanrathnayake.repository.UserRepository;
 import com.shehanrathnayake.to.IssueTO;
 import com.shehanrathnayake.util.IssueStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,7 +27,7 @@ public class IssueTransformer {
     private final ModelMapper mapper;
 
     public IssueTransformer(ModelMapper mapper, IssuePropertiesConverter issuePropertiesConverter,
-                            StaffPropertiesConverter staffConverter, StaffRepository staffRepository,
+                            EmployeePropertiesConverter employeeConverter, EmployeeRepository employeeRepository,
                             BookPropertiesConverter bookConverter, BookRepository bookRepository,
                             UserPropertiesConverter userConverter, UserRepository userRepository) {
         this.mapper = mapper;
@@ -40,12 +41,12 @@ public class IssueTransformer {
 
         /* Convert Staff to String and wise versa */
 
-        mapper.typeMap(Staff.class, String.class)
-                .setConverter(ctx -> staffConverter.covertToString(ctx.getSource().getId()));
-        mapper.typeMap(String.class, Staff.class)
+        mapper.typeMap(Employee.class, String.class)
+                .setConverter(ctx -> employeeConverter.covertToString(ctx.getSource().getId()));
+        mapper.typeMap(String.class, Employee.class)
                 .setConverter(ctx -> {
-                    Optional<Staff> optStaffOfficer = staffRepository.findById(staffConverter.convertIdToInt(ctx.getSource()));
-                    if (optStaffOfficer.isPresent()) return optStaffOfficer.get();
+                    Optional<Employee> optEmployee = employeeRepository.findById(employeeConverter.convertIdToInt(ctx.getSource()));
+                    if (optEmployee.isPresent()) return optEmployee.get();
                     else throw new AppException(404, "No staff Officer associate with the staff ID");
                 });
 
@@ -71,6 +72,13 @@ public class IssueTransformer {
                     if (optUser.isPresent()) return  optUser.get();
                     else throw new AppException(404, "No user associated with the user ID");
                 });
+
+        /* Convert SQL date to String and wise versa */
+
+        mapper.typeMap(Date.class, String.class)
+                .setConverter(ctx -> ctx.getSource().toString());
+        mapper.typeMap(String.class, Date.class)
+                .setConverter(ctx -> Date.valueOf(ctx.getSource()));
     }
 
     public Issue fromIssueTO(IssueTO issueTO) {

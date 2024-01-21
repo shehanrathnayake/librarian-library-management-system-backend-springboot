@@ -10,12 +10,14 @@ import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Date;
+
 @Data @AllArgsConstructor @NoArgsConstructor
 public class IssueReturnTO implements Serializable {
     @Null(message = "Return id should be empty")
     private String id;
     @NotBlank(message = "Returned date cannot be empty")
-    private String returnedDate;
+    private Date returnedDate;
     @NotBlank(message = "Issue id cannot be empty")
     @Pattern(regexp = "^[I\\d{6}]$")
     private String issueId;
