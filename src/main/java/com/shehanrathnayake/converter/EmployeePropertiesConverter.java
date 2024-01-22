@@ -8,6 +8,6 @@ public class EmployeePropertiesConverter {
         return Integer.parseInt(employeeId.substring(1));
     }
     public String covertToString(Integer employeeId) {
-        return String.format("S%06d", employeeId);
+        return String.format("E%06d", employeeId);
     }
 }

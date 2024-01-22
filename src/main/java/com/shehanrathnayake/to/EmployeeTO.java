@@ -16,10 +16,10 @@ public class EmployeeTO implements Serializable {
     @Pattern(regexp = "^[A-Za-z ]+$", message = "Invalid name")
     private String name;
     @NotBlank(message = "Designation cannot be empty")
-    @Pattern(regexp = "^[A-Za-z0-9-. ]+$")
+    @Pattern(regexp = "^[A-Za-z0-9-., ]+$")
     private String designation;
     @NotBlank(message = "Address cannot be empty")
-    @Pattern(regexp = "^[A-Za-z0-9-. ]$", message = "Address cannot be empty")
+    @Pattern(regexp = "^[A-Za-z0-9-., ]+$", message = "Address cannot be empty")
     private String address;
     @NotBlank(message = "Contact number cannot be empty")
     @Pattern(regexp = "^\\d+$")
