@@ -25,23 +25,24 @@ import java.util.stream.Collectors;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final Bucket bucket;
-    private final BookTransformer transformer;
+    private final BookTransformer bookTransformer;
 
-    public BookServiceImpl(BookRepository bookRepository, Bucket bucket, BookTransformer transformer) {
+    public BookServiceImpl(BookRepository bookRepository, Bucket bucket, BookTransformer bookTransformer) {
         this.bookRepository = bookRepository;
         this.bucket = bucket;
-        this.transformer = transformer;
+        this.bookTransformer = bookTransformer;
     }
 
     @Override
     public BookTO saveBook(BookReqTO bookReqTO) {
-        Book book = transformer.fromBookReqTO(bookReqTO);
+        Book book = bookTransformer.fromBookReqTO(bookReqTO);
         book.setBookCover("book/0");
         Book savedBook = bookRepository.save(book);
 
         savedBook.setBookCover("book/" + savedBook.getId());
         Book updatedBook = bookRepository.save(savedBook);
-        BookTO bookTO = transformer.toBookTO(updatedBook);
+        BookTO bookTO = bookTransformer.toBookTO(updatedBook);
+        System.out.println("bookTO-id: " + bookTO.getId());
 
         Blob blobRef = null;
         try {
@@ -58,7 +59,7 @@ public class BookServiceImpl implements BookService {
     public void updateBookDetails(BookReqTO bookReqTO) {
         Book currentBook = bookRepository.findById(getIdNumberValue(bookReqTO.getId())).orElseThrow(() -> new AppException(404, "No book associated with the id"));
 
-        Book updatedBook = transformer.fromBookReqTO(bookReqTO);
+        Book updatedBook = bookTransformer.fromBookReqTO(bookReqTO);
         updatedBook.setBookCover("book/" + updatedBook.getId());
         bookRepository.save(updatedBook);
 
@@ -74,19 +75,20 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void updateBookDetails(BookTO bookTO) {
-        bookRepository.findById(getIdNumberValue(bookTO.getId())).orElseThrow(() -> new AppException(404, "No book associate with the id"));
-        Book updatedBook = transformer.fromBookTO(bookTO);
+        Book foundBook = bookRepository.findById(getIdNumberValue(bookTO.getId())).orElseThrow(() -> new AppException(404, "No book associate with the id"));
+        Book updatedBook = bookTransformer.fromBookTO(bookTO);
+        updatedBook.setBookCover(foundBook.getBookCover());
         bookRepository.save(updatedBook);
     }
 
     @Override
     public void deleteBook(String bookId) {
         int idNumValue = getIdNumberValue(bookId);
-        if (bookRepository.existsById(idNumValue)) {
-            bookRepository.deleteById(idNumValue);
-        } else {
-            throw new AppException(404, "Book not found");
-        }
+        Book foundBook = bookRepository.findById(getIdNumberValue(bookId)).orElseThrow(() -> new AppException(404, "No book associate with the id"));
+        bookRepository.deleteById(idNumValue);
+
+        boolean isDeleted = bucket.get(foundBook.getBookCover()).delete();
+        if (!isDeleted) throw new AppException(500, "Failed to update the book cover");
     }
 
     @Override
@@ -95,7 +97,7 @@ public class BookServiceImpl implements BookService {
 
         Optional<Book> optBook = bookRepository.findById(idNumValue);
         if (optBook.isEmpty()) throw new AppException(404, "Book not found");
-        BookTO bookTO = transformer.toBookTO(optBook.get());
+        BookTO bookTO = bookTransformer.toBookTO(optBook.get());
         bookTO.setBookCover(bucket.get(optBook.get().getBookCover()).signUrl(1, TimeUnit.DAYS, Storage.SignUrlOption.withV4Signature()).toString());
         return bookTO;
     }
@@ -116,7 +118,7 @@ public class BookServiceImpl implements BookService {
 
 
     private List<BookTO> convertBookListToBookToList(List<Book> bookList) {
-        List<BookTO> bookTOList = transformer.toBookTOList(bookList);
+        List<BookTO> bookTOList = bookTransformer.toBookTOList(bookList);
         return bookTOList.stream().map(l -> {
             l.setBookCover(bucket.get(l.getBookCover()).signUrl(1, TimeUnit.DAYS, Storage.SignUrlOption.withV4Signature()).toString());
             return l;

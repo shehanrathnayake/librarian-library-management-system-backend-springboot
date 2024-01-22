@@ -30,7 +30,7 @@ public class BookPropertiesConverter implements Converter<String, BookCategory> 
     public int convertIdToInt(String bookId) {
         return Integer.parseInt(bookId.substring(1));
     }
-    public String covertToString(Integer bookId) {
+    public String covertIdToString(Integer bookId) {
         return String.format("B%06d", bookId);
     }
 }

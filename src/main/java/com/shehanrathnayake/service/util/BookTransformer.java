@@ -26,7 +26,7 @@ public class BookTransformer {
                 .setConverter(ctx -> (ctx.getSource() != null) ? bookPropsConverter.convertIdToInt(ctx.getSource()) : null);
 
         mapper.typeMap(Integer.class, String.class)
-                        .setConverter(ctx -> (ctx.getSource() != null) ? bookPropsConverter.covertToString(ctx.getSource()) : null);
+                        .setConverter(ctx -> (ctx.getSource() != null) ? bookPropsConverter.covertIdToString(ctx.getSource()) : null);
 
         mapper.typeMap(BookCategory.class, String.class)
                 .setConverter(ctx -> ctx.getSource().getCategory());
