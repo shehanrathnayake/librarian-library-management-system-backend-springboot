@@ -14,16 +14,16 @@ import java.sql.Date;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class IssueTO implements Serializable {
-    private String id;
     @Null(message = "Issue ID should be empty")
+    private String id;
+    @NotNull(message = "Issue date cannot be null")
     private Date issuedDate;
     @NotNull(message = "Status cannot be empty")
     private IssueStatus status;
-    @Pattern(regexp = "^\\d+$", message = "Only integer values are acceptable")
     private Integer renews;
     @NotBlank(message = "Issued officer cannot be empty")
-    @Pattern(regexp = "^S\\d{6}$")
-    private String issuedOfficer;
+    @Pattern(regexp = "^E\\d{6}$")
+    private String issuedEmployee;
     @NotBlank(message = "Book ID cannot be empty")
     @Pattern(regexp = "^B\\d{6}$", message = "Invalid book Id")
     private String bookId;
@@ -31,11 +31,11 @@ public class IssueTO implements Serializable {
     @Pattern(regexp = "^U\\d{6}$", message = "Invalid user Id")
     private String userId;
 
-    public IssueTO(Date issuedDate, IssueStatus status, Integer renews, String issuedOfficer, String bookId, String userId) {
+    public IssueTO(Date issuedDate, IssueStatus status, Integer renews, String issuedEmployee, String bookId, String userId) {
         this.issuedDate = issuedDate;
         this.status = status;
         this.renews = renews;
-        this.issuedOfficer = issuedOfficer;
+        this.issuedEmployee = issuedEmployee;
         this.bookId = bookId;
         this.userId = userId;
     }

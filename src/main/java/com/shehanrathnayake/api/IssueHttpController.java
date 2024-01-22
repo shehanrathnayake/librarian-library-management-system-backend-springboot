@@ -25,7 +25,7 @@ public class IssueHttpController {
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PostMapping(value = "/{issue-id}", consumes = "application/json")
+    @PatchMapping(value = "/{issue-id}", consumes = "application/json")
     public void updateIssue(@PathVariable("issue-id") String issueId,
                             @RequestBody @Validated IssueTO issueTO) {
         issueTO.setId(issueId);
@@ -43,8 +43,8 @@ public class IssueHttpController {
 //        return issueService.getIssueDetails(issueId);
 //    }
 
-    @GetMapping(value = "/{user-id}", produces = "application/json")
-    public List<IssueTO> getAllIssues(@PathVariable("user-id") String userId) {
+    @GetMapping(produces = "application/json")
+    public List<IssueTO> getAllIssues(@RequestParam("user-id") String userId) {
         return issueService.getAllIssues(userId);
     }
 }

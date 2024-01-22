@@ -37,7 +37,7 @@ public class IssueTransformer {
         mapper.typeMap(IssueStatus.class, String.class)
                 .setConverter(ctx -> ctx.getSource().getStatus());
         mapper.typeMap(String.class, IssueStatus.class)
-                .setConverter(ctx -> issuePropertiesConverter.convert(ctx.getSource()));
+                .setConverter(ctx -> (ctx.getSource() != null) ? issuePropertiesConverter.convert(ctx.getSource()) : null);
 
         /* Convert Staff to String and wise versa */
 
@@ -45,6 +45,7 @@ public class IssueTransformer {
                 .setConverter(ctx -> employeeConverter.covertToString(ctx.getSource().getId()));
         mapper.typeMap(String.class, Employee.class)
                 .setConverter(ctx -> {
+                    if (ctx.getSource() == null) return null;
                     Optional<Employee> optEmployee = employeeRepository.findById(employeeConverter.convertIdToInt(ctx.getSource()));
                     if (optEmployee.isPresent()) return optEmployee.get();
                     else throw new AppException(404, "No staff Officer associate with the staff ID");
@@ -53,10 +54,11 @@ public class IssueTransformer {
         /* Convert Book to String and wise versa */
 
         mapper.typeMap(Book.class, String.class)
-                .setConverter(ctx -> bookConverter.covertToString(ctx.getSource().getId()));
+                .setConverter(ctx -> bookConverter.covertIdToString(ctx.getSource().getId()));
 
         mapper.typeMap(String.class, Book.class)
                 .setConverter(ctx -> {
+                    if (ctx.getSource() == null) return null;
                     Optional<Book> optBook = bookRepository.findById(bookConverter.convertIdToInt(ctx.getSource()));
                     if (optBook.isPresent()) return optBook.get();
                     else throw new AppException(404, "No book is associated with the book ID");
@@ -68,6 +70,7 @@ public class IssueTransformer {
                 .setConverter(ctx -> userConverter.convertIdToString(ctx.getSource().getId()));
         mapper.typeMap(String.class, User.class)
                 .setConverter(ctx -> {
+                    if (ctx.getSource() == null) return null;
                     Optional<User> optUser = userRepository.findById(userConverter.convertIdToInt(ctx.getSource()));
                     if (optUser.isPresent()) return  optUser.get();
                     else throw new AppException(404, "No user associated with the user ID");
