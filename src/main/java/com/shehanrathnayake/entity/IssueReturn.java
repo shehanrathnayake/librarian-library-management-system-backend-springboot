@@ -17,7 +17,7 @@ public class IssueReturn implements SuperEntity{
     private String returnedDate;
 
     @OneToOne
-    @JoinColumn(name = "issue_id", referencedColumnName = "id")
+    @JoinColumn(name = "issue_id", unique = true, referencedColumnName = "id")
     private Issue issueId;
 
     @ManyToOne

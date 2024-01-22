@@ -7,7 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/issueReturn")
+@RequestMapping("/api/v1/issueReturns")
 @CrossOrigin
 public class IssueReturnHttpController {
 
@@ -38,7 +38,7 @@ public class IssueReturnHttpController {
     }
 
     @GetMapping(produces = "application/json")
-    public IssueReturnTO getIssueReturnDetails(@RequestParam String issueId) {
+    public IssueReturnTO getIssueReturnDetails(@RequestParam("issue-id") String issueId) {
         return issueReturnService.getIssueReturnDetails(issueId);
     }
 }

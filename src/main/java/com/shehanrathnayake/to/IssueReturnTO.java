@@ -16,14 +16,14 @@ import java.sql.Date;
 public class IssueReturnTO implements Serializable {
     @Null(message = "Return id should be empty")
     private String id;
-    @NotBlank(message = "Returned date cannot be empty")
+    @NotNull(message = "Returned date cannot be empty")
     private Date returnedDate;
     @NotBlank(message = "Issue id cannot be empty")
-    @Pattern(regexp = "^[I\\d{6}]$")
+    @Pattern(regexp = "^I\\d{6}$")
     private String issueId;
     @NotBlank(message = "Returned officer id cannot be empty")
-    @Pattern(regexp = "^IR\\d{6}$")
-    private String returnedOfficerId;
+    @Pattern(regexp = "^E\\d{6}$")
+    private String returnedEmployee;
     @NotNull(message = "Fine cannot be empty. No no fine, simply send zero")
     private BigDecimal fine;
 }
