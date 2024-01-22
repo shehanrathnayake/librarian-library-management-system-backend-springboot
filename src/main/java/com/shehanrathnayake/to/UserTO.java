@@ -21,7 +21,7 @@ public class UserTO implements Serializable {
     @NotBlank(message = "Password cannot be empty")
     private String password;
     @NotBlank(message = "Address cannot be empty")
-    @Pattern(regexp = "^[A-Za-z0-9-. ]+$", message = "Invalid address format")
+    @Pattern(regexp = "^[A-Za-z0-9-., ]+$", message = "Invalid address format")
     private String address;
     @NotBlank(message = "Contact cannot be empty")
     @Pattern(regexp = "^\\d+$", message = "Contact cannot be empty")
