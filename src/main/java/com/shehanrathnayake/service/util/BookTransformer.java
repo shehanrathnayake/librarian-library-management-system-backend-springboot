@@ -15,18 +15,14 @@ import java.util.stream.Collectors;
 @Component
 public class BookTransformer {
     private final ModelMapper mapper;
+    private final BookPropertiesConverter bookPropsConverter;
 
     public BookTransformer(ModelMapper modelMapper, BookPropertiesConverter bookPropsConverter) {
         this.mapper = modelMapper;
+        this.bookPropsConverter = bookPropsConverter;
 
         mapper.typeMap(MultipartFile.class, String.class)
                 .setConverter(ctx -> null);
-
-        mapper.typeMap(String.class, Integer.class)
-                .setConverter(ctx -> (ctx.getSource() != null) ? bookPropsConverter.convertIdToInt(ctx.getSource()) : null);
-
-        mapper.typeMap(Integer.class, String.class)
-                        .setConverter(ctx -> (ctx.getSource() != null) ? bookPropsConverter.covertIdToString(ctx.getSource()) : null);
 
         mapper.typeMap(BookCategory.class, String.class)
                 .setConverter(ctx -> ctx.getSource().getCategory());
@@ -40,10 +36,14 @@ public class BookTransformer {
         return mapper.map(bookReqTO, Book.class);
     }
     public Book fromBookTO(BookTO bookTO) {
-        return mapper.map(bookTO, Book.class);
+        Book book = mapper.map(bookTO, Book.class);
+        if (bookTO.getId() != null)  book.setId(bookPropsConverter.convertIdToInt(bookTO.getId()));
+        return book;
     }
     public BookTO toBookTO(Book book) {
-        return mapper.map(book, BookTO.class);
+        BookTO bookTO = mapper.map(book, BookTO.class);
+        bookTO.setId(bookPropsConverter.covertIdToString(book.getId()));
+        return bookTO;
     }
     public List<BookTO> toBookTOList(List<Book> bookList) {
         return bookList.stream().map(this::toBookTO).collect(Collectors.toList());

@@ -33,4 +33,7 @@ public class BookPropertiesConverter implements Converter<String, BookCategory> 
     public String covertIdToString(Integer bookId) {
         return String.format("B%06d", bookId);
     }
+//    public String covertIdToString(Integer bookId) {
+//        return "Hello";
+//    }
 }

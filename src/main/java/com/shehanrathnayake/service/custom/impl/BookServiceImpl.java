@@ -3,6 +3,7 @@ package com.shehanrathnayake.service.custom.impl;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
+import com.shehanrathnayake.converter.BookPropertiesConverter;
 import com.shehanrathnayake.entity.Book;
 import com.shehanrathnayake.exception.AppException;
 import com.shehanrathnayake.repository.BookRepository;
@@ -26,11 +27,13 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final Bucket bucket;
     private final BookTransformer bookTransformer;
+    private final BookPropertiesConverter bookPropertiesConverter;
 
-    public BookServiceImpl(BookRepository bookRepository, Bucket bucket, BookTransformer bookTransformer) {
+    public BookServiceImpl(BookRepository bookRepository, Bucket bucket, BookTransformer bookTransformer, BookPropertiesConverter bookPropertiesConverter) {
         this.bookRepository = bookRepository;
         this.bucket = bucket;
         this.bookTransformer = bookTransformer;
+        this.bookPropertiesConverter = bookPropertiesConverter;
     }
 
     @Override
@@ -42,7 +45,6 @@ public class BookServiceImpl implements BookService {
         savedBook.setBookCover("book/" + savedBook.getId());
         Book updatedBook = bookRepository.save(savedBook);
         BookTO bookTO = bookTransformer.toBookTO(updatedBook);
-        System.out.println("bookTO-id: " + bookTO.getId());
 
         Blob blobRef = null;
         try {
