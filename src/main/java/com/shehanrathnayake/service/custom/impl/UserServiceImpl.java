@@ -6,6 +6,8 @@ import com.shehanrathnayake.repository.UserRepository;
 import com.shehanrathnayake.service.custom.UserService;
 import com.shehanrathnayake.service.util.UserTransformer;
 import com.shehanrathnayake.to.UserTO;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -54,6 +56,12 @@ public class UserServiceImpl implements UserService {
     public List<UserTO> getAllUsers() {
         List<User> usersList = userRepository.findAll();
         return transformer.toUserTOList(usersList);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User loggedUser = userRepository.findById(getIdNumberValue(username)).orElseThrow(() -> new AppException(404, "User not found"));
+        return transformer.fromUserToUserDetails(loggedUser);
     }
 
     private int getIdNumberValue(String userId) {
