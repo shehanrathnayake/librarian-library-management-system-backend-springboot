@@ -28,7 +28,8 @@ class UserRepositoryImplTest {
                 "email@gmail.com",
                 "123456",
                 "Matara",
-                "0711313951"
+                "0711313951",
+                "member"
         );
         User savedUser = userRepository.save(user);
         assertNotNull(savedUser);
@@ -46,7 +47,8 @@ class UserRepositoryImplTest {
                 "email@gmail.com",
                 "123456",
                 "Matara",
-                "0711313951"
+                "0711313951",
+                "member"
         );
         User savedUser = userRepository.save(user);
         assertNotNull(savedUser);
@@ -74,7 +76,8 @@ class UserRepositoryImplTest {
                 "email@gmail.com",
                 "123456",
                 "Matara",
-                "0711313951"
+                "0711313951",
+                "member"
         );
         User savedUser = userRepository.save(user);
         assertNotNull(savedUser);
@@ -94,7 +97,8 @@ class UserRepositoryImplTest {
                 "email@gmail.com",
                 "123456",
                 "Matara",
-                "0711313951"
+                "0711313951",
+                "member"
         );
         User savedUser = userRepository.save(user);
         assertNotNull(savedUser);
@@ -115,7 +119,8 @@ class UserRepositoryImplTest {
                 "email@gmail.com",
                 "123456",
                 "Matara",
-                "0711313951"
+                "0711313951",
+                "member"
         );
         User savedUser = userRepository.save(user);
         assertNotNull(savedUser);
@@ -131,7 +136,8 @@ class UserRepositoryImplTest {
                     "email" + i + "@gmail.com",
                     "123456",
                     "Matara",
-                    "0711313951"
+                    "0711313951",
+                    "member"
             );
             userRepository.save(user);
         }
@@ -145,7 +151,8 @@ class UserRepositoryImplTest {
                     "email" + i + "@gmail.com",
                     "123456",
                     "Matara",
-                    "0711313951"
+                    "0711313951",
+                    "member"
             );
             userRepository.save(user);
         }

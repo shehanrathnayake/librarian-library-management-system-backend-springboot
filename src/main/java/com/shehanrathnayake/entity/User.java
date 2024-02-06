@@ -17,20 +17,23 @@ public class User implements SuperEntity {
     private int id;
     @Column(nullable = false, length = 100)
     private String name;
-    @Column(nullable = false, length = 60, unique = true)
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
     @Column(nullable = false, length = 100)
     private String password;
     @Column(nullable = false, length = 500)
     private String address;
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, unique = true)
     private String contact;
+    @Column(nullable = false, length = 20)
+    private String roles;
 
-    public User(String name, String email, String password, String address, String contact) {
+    public User(String name, String email, String password, String address, String contact, String roles) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.address = address;
         this.contact = contact;
+        this.roles = roles;
     }
 }

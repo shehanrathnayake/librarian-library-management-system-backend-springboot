@@ -10,6 +10,7 @@ import com.shehanrathnayake.to.IssueTO;
 import com.shehanrathnayake.to.UserTO;
 import com.shehanrathnayake.util.BookCategory;
 import com.shehanrathnayake.util.IssueStatus;
+import com.shehanrathnayake.util.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,14 +93,16 @@ class IssueServiceImplTest {
                 "email@gmail.com",
                 "123456",
                 "Matara",
-                "0711313951"
+                "0711313951",
+                UserRole.MEMBER
         );
         userTO2 = new UserTO(
                 "Jagath Fernando",
                 "email2@gmail.com",
                 "1234563",
                 "Tangalle",
-                "0711313985"
+                "0711313985",
+                UserRole.MEMBER
         );
         em.persist(bookTransformer.fromBookTO(bookTO));
         em.persist(bookTransformer.fromBookTO(bookTO2));
