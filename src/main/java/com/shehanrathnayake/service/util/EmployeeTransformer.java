@@ -15,11 +15,12 @@ public class EmployeeTransformer {
 
     public EmployeeTransformer(ModelMapper mapper, EmployeePropertiesConverter employeePropsConverter) {
         this.mapper = mapper;
-
+/*
         mapper.typeMap(String.class, Integer.class)
                 .setConverter(ctx -> (ctx.getSource() != null) ? employeePropsConverter.convertIdToInt(ctx.getSource()) : null);
         mapper.typeMap(Integer.class, String.class)
                 .setConverter(ctx -> (ctx.getSource() != null) ? employeePropsConverter.covertToString(ctx.getSource()) : null);
+*/
     }
     public Employee fromEmployeeTO(EmployeeTO employeeTO) {
         return mapper.map(employeeTO, Employee.class);

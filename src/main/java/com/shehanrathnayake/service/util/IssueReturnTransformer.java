@@ -26,12 +26,12 @@ public class IssueReturnTransformer {
         this.mapper = mapper;
 
         /* Convert String to Integer and wise versa */
-
+/*
         mapper.typeMap(String.class, Integer.class)
                 .setConverter(ctx -> (ctx.getSource() != null) ? converter.convertIdToInt(ctx.getSource()) : null);
         mapper.typeMap(Integer.class, String.class)
                 .setConverter(ctx -> (ctx.getSource() != null) ? converter.covertToString(ctx.getSource()) : null);
-
+*/
         /* Convert String to Issue and wise versa */
 
         mapper.typeMap(String.class, Issue.class)

@@ -21,7 +21,6 @@ public class IssueTO implements Serializable {
     @NotNull(message = "Status cannot be empty")
     private IssueStatus status;
     private Integer renews;
-    @NotBlank(message = "Issued officer cannot be empty")
     @Pattern(regexp = "^E\\d{6}$")
     private String issuedEmployee;
     @NotBlank(message = "Book ID cannot be empty")
