@@ -34,18 +34,12 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
 //        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(req.getParameter("username"), req.getParameter("password"));
-        UserCredentialReqTO userCredential = null;
+        UserCredentialReqTO userCredential;
         try {
-//            System.out.println(req.getReader() instanceof JsonParser);
-//            JsonFactory jsonFactory = new JsonFactory();
-//            com.fasterxml.jackson.core.JsonParser jsonParser = jsonFactory.createParser(req.getReader());
-//            System.out.println(jsonParser.);
-//            userCredential = new ObjectMapper().readValue(jsonParser, UserCredentialReqTO.class);
             userCredential = new ObjectMapper().readValue(req.getInputStream(), UserCredentialReqTO.class);
         } catch (IOException e) {
             throw new AppException(404, "Wrong credentials");
         }
-
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userCredential.getUsername(), userCredential.getPassword());
         return authenticationManager.authenticate(authenticationToken);
     }

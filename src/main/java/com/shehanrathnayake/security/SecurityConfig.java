@@ -16,6 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
+import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
 @Configuration @RequiredArgsConstructor
@@ -30,6 +31,7 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/api/v1/login/**", "/api/v1/refresh-token/**").permitAll()
                 .antMatchers(POST,"/api/v1/users").permitAll()
+                .antMatchers(GET,"/api/v1/books/**").permitAll()
                 .anyRequest().authenticated();
 
         CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManager);

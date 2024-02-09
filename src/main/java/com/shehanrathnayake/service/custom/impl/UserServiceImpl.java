@@ -8,6 +8,7 @@ import com.shehanrathnayake.service.util.UserTransformer;
 import com.shehanrathnayake.to.UserTO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,15 +20,18 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserTransformer transformer;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, UserTransformer userTransformer) {
+    public UserServiceImpl(UserRepository userRepository, UserTransformer userTransformer, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userRepository = userRepository;
         this.transformer = userTransformer;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
     public UserTO saveUser(UserTO userTO) {
         User user = transformer.fromUserTO(userTO);
+        user.setPassword(bCryptPasswordEncoder.encode(userTO.getPassword()));
         User savedUser = userRepository.save(user);
         return transformer.toUserTO(savedUser);
     }
